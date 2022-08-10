@@ -1,0 +1,9 @@
+package com.example.farmingproject.repository;
+
+import com.example.farmingproject.domain.CropWork;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CropWorkRepository extends CrudRepository<CropWork, Integer> {
+
+    Long countById(int id);
+}
