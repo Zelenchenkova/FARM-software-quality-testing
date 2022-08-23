@@ -3,10 +3,13 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.FertilizerType;
 import com.example.farmingproject.jpql.MostExpensiveFertilizerForTypes;
 import com.example.farmingproject.repository.FertilizerTypeRepository;
+import com.example.farmingproject.util.MostExpensiveForTypesPDFExporter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class FertilizerTypeService {
+public class FertilizerTypeService implements GeneralContent{
 
     private final FertilizerTypeRepository fertilizerTypeRepository;
 
@@ -46,7 +49,16 @@ public class FertilizerTypeService {
         fertilizerTypeRepository.deleteById(id);
     }
 
+    public void exportToPDFFertilizerType(HttpServletResponse response) throws IOException {
+        setPdfParams(response, "fertilizerTypes");
+        new MostExpensiveForTypesPDFExporter(perform()).export(response);
+    }
+
     public Set<MostExpensiveFertilizerForTypes> findMostExpensiveFertilizerForTypes() {
+        return perform();
+    }
+
+    private Set<MostExpensiveFertilizerForTypes> perform() {
         Set<MostExpensiveFertilizerForTypes> set = new HashSet<>();
         return fertilizerTypeRepository.findMostExpensiveFertilizerForTypes()
                 .stream().flatMap(row -> {

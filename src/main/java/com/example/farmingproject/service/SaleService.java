@@ -3,16 +3,15 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.Sale;
 import com.example.farmingproject.jpql.HighestCustomer;
 import com.example.farmingproject.repository.SaleRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -50,12 +49,12 @@ public class SaleService {
     public Set<HighestCustomer> findTheHighestCustomer() {
         Set<HighestCustomer> set = new HashSet<>();
         return saleRepository.findCustomerSpentTheMost()
-                .stream().flatMap(row -> {
-                    set.add(new HighestCustomer(
-                            (String) row[0],
-                            (Double) row[1],
-                            BigDecimal.valueOf((Double) row[2])));
-                    return set.stream();
-                }).collect(Collectors.toSet());
+            .stream().flatMap(row -> {
+                set.add(new HighestCustomer(
+                    (String) row[0],
+                    (Double) row[1],
+                    BigDecimal.valueOf((Double) row[2])));
+                return set.stream();
+            }).collect(Collectors.toSet());
     }
 }

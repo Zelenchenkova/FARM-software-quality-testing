@@ -3,10 +3,13 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.ProviderFertilizer;
 import com.example.farmingproject.jpql.SumByDate;
 import com.example.farmingproject.repository.ProviderFertilizerRepository;
+import com.example.farmingproject.util.SumByDatePDFExporter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashSet;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class ProviderFertilizerService {
+public class ProviderFertilizerService implements GeneralContent{
 
     private final ProviderFertilizerRepository providerFertilizerRepository;
 
@@ -48,7 +51,16 @@ public class ProviderFertilizerService {
         providerFertilizerRepository.deleteById(id);
     }
 
+    public void exportToPDFProviderFertilizer(HttpServletResponse response) throws IOException {
+        setPdfParams(response, "providerFertilizers");
+        new SumByDatePDFExporter(perform()).export(response);
+    }
+
     public Set<SumByDate> findSumByDate() {
+        return perform();
+    }
+
+    private Set<SumByDate> perform() {
         Set<SumByDate> set = new HashSet<>();
         return providerFertilizerRepository.findSumByDate()
                 .stream().flatMap(row -> {

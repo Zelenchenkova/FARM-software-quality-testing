@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+
+    .child {
+        font-size: 20px;
+        display: inline-block;
+        padding: 12px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .color {
+        font-size: 18px;
+        color: crimson !important;
+    }
+    .color:hover, .color:active {
+        color: darkred !important;
+    }
+
+    .btn {
+        line-height:0px;
+        height:20px;
+        font-family: 'Poppins';
+        color: #fff !important;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-decoration: none;
+        background: #60a3bc;
+        padding: 20px;
+        border-radius: 50px;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .btn:hover {
+        text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Manage Providers</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/providers/new}">Add New Provider</a>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/}">Back to Main Menu</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success">
+        [[${message}]]
+    </div>
+</div>
+<form ui-jp="parsley" th:action="@{/providers/providerByName}" th:object="${myProvider}" method="get">
+    <div class="row m-b">
+        <div class="child">Search Provider by name:</div>
+        <div class="child"><input type="text" th:field="*{name}" class="form-control input-sm w-auto inline m-r" required/></div>
+        <div class="child box-3">
+            <button class="btn">Search!</button>
+        </div>
+    </div>
+</form>
+<div div style="position:absolute; left:1000px; top:150px">
+    <a class="color" th:href="@{/providers/customersAndProviders}">Show All Customers and Providers!</a>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>KOD</th>
+            <th>Name of Provider</th>
+            <th>Address of Provider</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="p : ${providers}">
+            <tr>
+                <td>[[${p.kod}]]</td>
+                <td>[[${p.name}]]</td>
+                <td>[[${p.address}]]</td>
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+                    <a class="h4 mr-3" th:href="@{'/providers/edit/' +${p.kod}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a sec:authorize="hasAuthority('ADMIN')" class="h4" th:href="@{'/providers/delete/' +${p.kod}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

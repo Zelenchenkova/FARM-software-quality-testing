@@ -17,7 +17,6 @@ import java.util.Set;
 public class Provider implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "kod")
     private Integer kod;
 

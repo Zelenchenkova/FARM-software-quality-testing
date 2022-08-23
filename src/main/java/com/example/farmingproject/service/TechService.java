@@ -42,7 +42,7 @@ public class TechService {
         techRepository.deleteById(id);
     }
 
-    public List<Tech> findWateringTech(String name) {
+    public List<Tech> findWateringTech() {
         return techRepository.findWateringTech();
     }
 

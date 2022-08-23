@@ -3,10 +3,14 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.TechType;
 import com.example.farmingproject.jpql.AvgTechYearByType;
 import com.example.farmingproject.repository.TechTypeRepository;
+import com.example.farmingproject.util.AvgTechYearPDFExporter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class TechTypeService {
+public class TechTypeService implements GeneralContent{
 
     private final TechTypeRepository techTypeRepository;
 
@@ -46,13 +50,23 @@ public class TechTypeService {
         techTypeRepository.deleteById(id);
     }
 
+    public void exportToPDFTechType(HttpServletResponse response)  throws IOException {
+        setPdfParams(response, "techTypes");
+        new AvgTechYearPDFExporter(perform()).export(response);
+    }
+
     public Set<AvgTechYearByType> findTheAvgTechYearByType() {
+        return perform();
+    }
+
+    private Set<AvgTechYearByType> perform() {
         Set<AvgTechYearByType> set = new HashSet<>();
         return techTypeRepository.findAvgTechYearByType()
                 .stream().flatMap(row -> {
+                    BigDecimal r = (BigDecimal) row[1];
                     set.add(new AvgTechYearByType(
                             (String) row[0],
-                            (Integer) row[1]
+                            r.intValue()
                     ));
                     return set.stream();
                 }).collect(Collectors.toSet());

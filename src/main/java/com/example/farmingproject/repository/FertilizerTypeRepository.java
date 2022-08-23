@@ -11,7 +11,7 @@ public interface FertilizerTypeRepository extends CrudRepository<FertilizerType,
     Long countById(int id);
 
     // Для кожного типу добрива обрати найдорожче добриво
-    @Query(value = "SELECT A.name, fertilizer.name FROM fertilizer_type A\n" +
+    @Query(value = "SELECT A.name, fertilizer.name AS B FROM fertilizer_type A\n" +
             "JOIN fertilizer ON A.id = fertilizer.id_ftype\n" +
             "WHERE fertilizer.id = (SELECT id_fertilizer FROM  provider_fertilizer WHERE price = \n" +
             "\t(\n" +

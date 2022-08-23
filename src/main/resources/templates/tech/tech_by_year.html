@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Tech By Year</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/teches/}">Back to Teches</a>
+    </div>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Name of Tech</th>
+            <th>Tech Year</th>
+            <th>Name of Tech Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="tech : ${teches}">
+            <tr>
+                <td>[[${tech.id}]]</td>
+                <td>[[${tech.name}]]</td>
+                <td>[[${tech.year}]]</td>
+                <td>[[${tech.techType.name}]]</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>

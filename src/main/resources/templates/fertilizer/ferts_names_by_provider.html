@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+    .cen {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Ferts Names By Provider</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/fertilizers/}">Back to Fertilizers</a>
+    </div>
+    <div class="cen">
+        <a th:href="@{/fertilizers/export}" class="child">Export as PDF</a>
+    </div>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="fert : ${set}">
+            <tr>
+                <td>[[${fert.name}]]</td>
+                <td>[[${fert.comment}]]</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>

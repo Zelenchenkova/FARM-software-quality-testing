@@ -26,8 +26,7 @@ public interface TechRepository extends CrudRepository<Tech, Integer> {
     List<Tech> findTechByYear(Integer yearE, Integer yearL);
 
     // Якого року випуску найновіша наявна техніка та її назва?
-    @Query(value = "SELECT name, year FROM tech" +
-            " WHERE year >= ALL(SELECT year FROM tech )",
-            nativeQuery = true)
+    @Query(value = "SELECT new com.example.farmingproject.domain.Tech(t.name, t.year) FROM Tech AS t" +
+            " WHERE t.year >= ALL(SELECT year FROM Tech)")
     List<Tech> findNewestTech();
 }

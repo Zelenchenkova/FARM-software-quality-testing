@@ -12,9 +12,11 @@ import java.util.Set;
 @Table(name = "tech_type")
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"teches", "works"})
 public class TechType {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

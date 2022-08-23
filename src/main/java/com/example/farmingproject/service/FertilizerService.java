@@ -3,10 +3,14 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.Fertilizer;
 import com.example.farmingproject.jpql.FertsNamesByProvider;
 import com.example.farmingproject.repository.FertilizerRepository;
+import com.example.farmingproject.util.FertsNamesByPDFExporter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class FertilizerService {
+public class FertilizerService implements GeneralContent{
 
     private final FertilizerRepository fertilizerRepository;
 
@@ -54,7 +58,21 @@ public class FertilizerService {
         return fertilizerRepository.findUnusedFertilizers();
     }
 
+    public void exportToPDFFertilizer(HttpServletResponse response, String name) throws IOException {
+        setPdfParams(response, "fertilizers");
+        new FertsNamesByPDFExporter(perform(name)).export(response);
+    }
+
     public Set<FertsNamesByProvider> findFertsNamesByProvider(String name) {
+        return perform(name);
+    }
+
+    @Transactional
+    public void setColumnMostPopularFertilizer() {
+        fertilizerRepository.setColumnMostPopularFertilizer();
+    }
+
+    private Set<FertsNamesByProvider> perform(String name) {
         Set<FertsNamesByProvider> set = new HashSet<>();
         return fertilizerRepository.findFertsNamesByProvider(name)
                 .stream().flatMap(row -> {
@@ -64,9 +82,5 @@ public class FertilizerService {
                     ));
                     return set.stream();
                 }).collect(Collectors.toSet());
-    }
-
-    public void setColumnMostPopularFertilizer() {
-        fertilizerRepository.setColumnMostPopularFertilizer();
     }
 }

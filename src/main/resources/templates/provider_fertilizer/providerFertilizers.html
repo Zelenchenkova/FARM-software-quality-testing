@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .color {
+        font-size: 18px;
+        color: crimson !important;
+    }
+    .color:hover, .color:active {
+        color: darkred !important;
+    }
+
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Manage Provider-Fertilizers</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/providerFertilizers/new}">Add New Provider-Fertilizer</a>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/}">Back to Main Menu</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success">
+        [[${message}]]
+    </div>
+</div>
+<div div style="position:absolute; left:950px; top:100px">
+    <a class="color" th:href="@{/providerFertilizers/sumByDate}">Show Sum of Fertilizers Cost By Date!</a>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Price</th>
+            <th>Weight</th>
+            <th>Fertilizer ID</th>
+            <th>Provider ID</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="pf : ${providerFertilizers}">
+            <tr>
+                <td>[[${pf.id}]]</td>
+                <td>[[${pf.date}]]</td>
+                <td>[[${pf.price}]]</td>
+                <td>[[${pf.weight}]]</td>
+                <td>[[${pf.fertilizer.id}]]</td>
+                <td>[[${pf.provider.kod}]]</td>
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+                    <a class="h4 mr-3" th:href="@{'/providerFertilizers/edit/' +${pf.id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a sec:authorize="hasAuthority('ADMIN')" class="h4" th:href="@{'/providerFertilizers/delete/' +${pf.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

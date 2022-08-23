@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+
+    .child {
+        font-size: 20px;
+        display: inline-block;
+        padding: 12px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .color {
+        font-size: 18px;
+        color: crimson !important;
+    }
+    .color:hover, .color:active {
+        color: darkred !important;
+    }
+
+    .color1 {
+        font-size: 18px;
+        color: chartreuse !important;
+    }
+
+    .color1:hover, .color:active {
+        color: yellowgreen !important;
+    }
+
+    .btn {
+        line-height:0px;
+        height:20px;
+        font-family: 'Poppins';
+        color: #fff !important;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-decoration: none;
+        background: #60a3bc;
+        padding: 20px;
+        border-radius: 50px;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .btn:hover {
+        text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Manage Teches</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/teches/new}">Add New Tech</a>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/}">Back to Main Menu</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success">
+        [[${message}]]
+    </div>
+</div>
+<form ui-jp="parsley" th:action="@{/teches/findTechesByYear}" th:object="${myTech}" method="get">
+    <div class="row m-b">
+        <div class="child">Show teches made between the years:</div>
+        <div class="child"><input type="number" th:field="*{startYear}" class="form-control input-sm w-auto inline m-r" required min="1980" max="2022"/></div>
+        <div class="child"><input type="number" th:field="*{endYear}" class="form-control input-sm w-auto inline m-r" required min="1980" max="2022"/></div>
+        <div class="child box-3">
+            <button class="btn">Search!</button>
+        </div>
+    </div>
+</form>
+<div div style="position:absolute; left:1100px; top:150px">
+    <a class="color" th:href="@{/teches/findSpecificTech}">Show Watering Tech!</a>
+</div>
+<div div style="position:absolute; left:1120px; top:120px">
+    <a class="color1" th:href="@{/teches/findNewestTech}">Find Newest Tech!</a>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Name of Tech</th>
+            <th>Year of Tech</th>
+            <th>Name of Tech Type</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="tech : ${teches}">
+            <tr>
+                <td>[[${tech.id}]]</td>
+                <td>[[${tech.name}]]</td>
+                <td>[[${tech.year}]]</td>
+                <td>[[${tech.techType.name}]]</td>
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+                    <a class="h4 mr-3" th:href="@{'/teches/edit/' +${tech.id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a sec:authorize="hasAuthority('ADMIN')" class="h4" th:href="@{'/teches/delete/' +${tech.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

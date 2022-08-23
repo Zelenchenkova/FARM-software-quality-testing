@@ -44,6 +44,6 @@ public class HarvestService {
     }
 
     public Double findHarvestByWeight(Date dateStart, Date dateEnd) {
-        return harvestRepository.findHarvestByWeight(dateStart, dateEnd);
+        return Math.round(harvestRepository.findHarvestByWeight(dateStart, dateEnd)*10.0)/10.0;
     }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Manage User Activity</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/}">Back to Main Menu</a>
+    </div>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Login/Logout Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="u : ${tracks}">
+            <tr>
+                <td>[[${u.id}]]</td>
+                <td>[[${u.username}]]</td>
+                <td>[[${u.role}]]</td>
+                <td>[[${u.localDateTime}]]</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

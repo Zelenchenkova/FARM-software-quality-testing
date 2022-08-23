@@ -1,8 +1,6 @@
 package com.example.farmingproject.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(exclude = "cropWorkTeches")
+@NoArgsConstructor
 public class Tech implements Serializable {
 
     @Id
@@ -33,4 +32,10 @@ public class Tech implements Serializable {
 
     @OneToMany(mappedBy = "tech", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CropWorkTech> cropWorkTeches;
+
+    // Для запиту, де потрібні тільки назва і рік
+    public Tech(String name, Integer year) {
+        this.name = name;
+        this.year = year;
+    }
 }

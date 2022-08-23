@@ -22,7 +22,7 @@ public class HarvestSaleService {
 
     public HarvestSale findHarvestSaleById(Integer id) {
         try {
-            Optional<HarvestSale> result= harvestSaleRepository.findById(id);
+            Optional<HarvestSale> result = harvestSaleRepository.findById(id);
             if(result.isPresent()){
                 return result.get();
             } else throw new EntityNotFoundException("Could not find any harvest-sale with id " + id);
@@ -31,11 +31,19 @@ public class HarvestSaleService {
         }
     }
 
+    public void deleteHarvestSale(Integer id) throws EntityNotFoundException {
+        Long count = harvestSaleRepository.countById(id);
+        if(count == null||count == 0){
+            throw new EntityNotFoundException("Could not find any harvest-sale with id " + id);
+        }
+        harvestSaleRepository.deleteById(id);
+    }
+
     public void saveHarvestSale(HarvestSale harvestSale) {
         harvestSaleRepository.save(harvestSale);
     }
 
     public Double findTotalSaleSum() {
-        return harvestSaleRepository.findTotalSaleSum();
+        return Math.round(harvestSaleRepository.findTotalSaleSum() * 10.0) / 10.0;
     }
 }

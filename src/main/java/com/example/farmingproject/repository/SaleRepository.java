@@ -1,10 +1,9 @@
 package com.example.farmingproject.repository;
 
 import com.example.farmingproject.domain.Sale;
+import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.Set;
 
 public interface SaleRepository extends CrudRepository<Sale, Integer> {
 

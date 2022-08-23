@@ -3,10 +3,14 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.Culture;
 import com.example.farmingproject.jpql.LatestCropDateForCultures;
 import com.example.farmingproject.repository.CultureRepository;
+import com.example.farmingproject.util.LatestCropPDFExporter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class CultureService {
+public class CultureService implements GeneralContent{
 
     private final CultureRepository cultureRepository;
 
@@ -51,23 +55,33 @@ public class CultureService {
         return cultureRepository.findCultureByName(name);
     }
 
-    public List<Culture> findUnusedCultures() {
-        return cultureRepository.findUnusedCultures();
+    public List<String> findUnusedCultures() {
+        return cultureRepository.findUnusedCultures().stream().map(String::valueOf).collect(Collectors.toList());
+    }
+
+    public void exportToPDFCulture(HttpServletResponse response) throws IOException {
+        setPdfParams(response, "cultures");
+        new LatestCropPDFExporter(perform()).export(response);
     }
 
     public Set<LatestCropDateForCultures> findLatestCropDateForCultures() {
+        return perform();
+    }
+
+    @Transactional
+    public void setColumnMostPopularCulture() {
+        cultureRepository.setColumnMostPopularCulture();
+    }
+
+    private Set<LatestCropDateForCultures> perform() {
         Set<LatestCropDateForCultures> set = new HashSet<>();
         return cultureRepository.findLatestCropDateForCultures()
                 .stream().flatMap(row -> {
                     set.add(new LatestCropDateForCultures(
                             (String) row[0],
-                            Date.valueOf((String) row[1])
+                            (Date) row[1]
                     ));
                     return set.stream();
                 }).collect(Collectors.toSet());
-    }
-
-    public void setColumnMostPopularCulture() {
-        cultureRepository.setColumnMostPopularCulture();
     }
 }

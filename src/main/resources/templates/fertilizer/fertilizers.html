@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<style>
+
+    .child {
+        font-size: 20px;
+        display: inline-block;
+        padding: 12px;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .color {
+        font-size: 18px;
+        color: crimson !important;
+    }
+    .color:hover, .color:active {
+        color: darkred !important;
+    }
+
+    .color1 {
+        font-size: 18px;
+        color: chartreuse !important;
+    }
+
+    .color1:hover, .color:active {
+        color: yellowgreen !important;
+    }
+
+    .color2 {
+        font-size: 18px;
+        color: blue !important;
+    }
+
+    .color2:hover, .color:active {
+        color: darkblue !important;
+    }
+
+    .left {
+        font-size: 20px;
+        text-align: left;
+    }
+
+    .btn {
+        line-height:0px;
+        height:20px;
+        font-family: 'Poppins';
+        color: #fff !important;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-decoration: none;
+        background: #60a3bc;
+        padding: 20px;
+        border-radius: 50px;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+    }
+
+    .btn:hover {
+        text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+    }
+
+</style>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Manage Fertilizers</h2></div>
+    <div class="m-2">
+        <a class="h3" th:href="@{/fertilizers/new}">Add New Fertilizer</a>
+    </div>
+    <div class="m-2">
+        <a class="h3" th:href="@{http://localhost:8080/}">Back to Main Menu</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success">
+        [[${message}]]
+    </div>
+</div>
+<h4 class="left">
+    <form ui-jp="parsley" th:action="@{/fertilizers/fertsNamesByProvider}" th:object="${providerName}" method="get">
+        <div class="row m-b">
+            <div class="child">Show goods bought from:</div>
+            <div class="form-control input-sm w-auto inline m-r">
+                <select th:field="*{name}" class="form-control" required>
+                    <th:block th:each="pname : ${providers}">
+                        <option th:text="${pname.name}" th:value="${pname.name}"/>
+                    </th:block>
+                </select>
+            </div>
+            <div class="child box-3">
+                <button class="btn">Search!</button>
+            </div>
+        </div>
+    </form>
+</h4>
+<div div style="position:absolute; left:1050px; top:150px">
+    <a class="color" th:href="@{/fertilizers/organicFertilizers}">Show Organic Fertilizers!</a>
+</div>
+<div div style="position:absolute; left:1050px; top:120px">
+    <a class="color1" th:href="@{/fertilizers/unusedFertilizers}">Show Unused Fertilizers!</a>
+</div>
+<div div style="position:absolute; left:1010px; top:90px">
+    <a class="color2"  th:href="@{/fertilizers/mostPopularFertilizer}">Show Most Popular Fertilizer!</a>
+</div>
+<div class="center">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Name of Fertilizer</th>
+            <th>Description</th>
+            <th>Fertilizer Type</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="fert : ${fertilizers}">
+            <tr>
+                <td>[[${fert.id}]]</td>
+                <td>[[${fert.name}]]</td>
+                <td>[[${fert.description}]]</td>
+                <td>[[${fert.fertilizerType.name}]]</td>
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+                    <a class="h4 mr-3" th:href="@{'/fertilizers/edit/' +${fert.id}}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a sec:authorize="hasAuthority('ADMIN')" class="h4" th:href="@{'/fertilizers/delete/' +${fert.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

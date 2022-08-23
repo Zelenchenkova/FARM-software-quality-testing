@@ -3,10 +3,13 @@ package com.example.farmingproject.service;
 import com.example.farmingproject.domain.Provider;
 import com.example.farmingproject.jpql.CustomersAndProviders;
 import com.example.farmingproject.repository.ProviderRepository;
+import com.example.farmingproject.util.PartnersPDFExporter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +18,12 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class ProviderService {
+public class ProviderService implements GeneralContent{
 
     private final ProviderRepository providerRepository;
 
-    public List<Provider> findProviderByNameWith(String name) {
-        return providerRepository.findProviderByName(name);
+    public List<Provider> findAllProviders() {
+        return (List<Provider>) providerRepository.findAll();
     }
 
     public Provider findProviderById(Integer id) {
@@ -46,11 +49,20 @@ public class ProviderService {
         providerRepository.deleteById(id);
     }
 
+    public void exportToPDFProvider(HttpServletResponse response) throws IOException {
+        setPdfParams(response, "providers");
+        new PartnersPDFExporter(perform()).export(response);
+    }
+
     public List<Provider> findProviderByName(String name) {
         return providerRepository.findProviderByName(name);
     }
 
     public Set<CustomersAndProviders> findAllCustomersAndProviders() {
+        return perform();
+    }
+
+    private Set<CustomersAndProviders> perform() {
         Set<CustomersAndProviders> set = new HashSet<>();
         return providerRepository.findAllCustomersAndProviders()
                 .stream().flatMap(row -> {

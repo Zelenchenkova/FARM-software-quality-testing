@@ -13,7 +13,6 @@ public interface FertilizerRepository extends CrudRepository<Fertilizer, Integer
 
     Long countById(int id);
 
-    // TODO: можна покращити
     // Які є органічні добрива? Відсортувати за назвою.
     @Query(value = "SELECT * FROM fertilizer" +
             " WHERE id_ftype =" +
@@ -44,15 +43,14 @@ public interface FertilizerRepository extends CrudRepository<Fertilizer, Integer
 
     // Дописати в додаткову інформацію "most popular" до найбільш часто використовуваного добрива
     @Modifying
-    @Query(value = "SET SQL_SAFE_UPDATES = 0;\n" +
-            "UPDATE fertilizer SET addInfo = 'most popular' \n" +
+    @Query(value = "UPDATE `fertilizer` SET addInfo = 'most popular'\n" +
             "WHERE id IN " +
             "(SELECT  crop_fertilizer.id_fertilizer FROM  crop_fertilizer" +
             " GROUP BY  crop_fertilizer.id_fertilizer \n" +
             "HAVING COUNT(*) >=" +
             " (SELECT max(my_count) FROM(SELECT COUNT(*) as my_count" +
             " FROM  crop_fertilizer" +
-            " GROUP BY  crop_fertilizer.id_fertilizer)AS A));\n" +
-            "SET SQL_SAFE_UPDATES = 1", nativeQuery = true)
+            " GROUP BY  crop_fertilizer.id_fertilizer)AS A));"
+            , nativeQuery = true)
     void setColumnMostPopularFertilizer();
 }
