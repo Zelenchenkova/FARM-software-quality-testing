@@ -1,6 +1,6 @@
 package com.example.farmingproject.repository;
 
-import com.example.farmingproject.domain.FertilizerType;
+import com.example.farmingproject.entities.FertilizerType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

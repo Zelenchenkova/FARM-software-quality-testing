@@ -1,6 +1,6 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.TechType;
+import com.example.farmingproject.entities.TechType;
 import com.example.farmingproject.jpql.AvgTechYearByType;
 import com.example.farmingproject.service.TechTypeService;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Provider;
+import com.example.farmingproject.entities.Provider;
 import com.example.farmingproject.jpql.CustomersAndProviders;
 import com.example.farmingproject.service.ProviderService;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.CropWorkTech;
+import com.example.farmingproject.entities.CropWorkTech;
 import com.example.farmingproject.repository.CropWorkTechRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.FertilizerType;
+import com.example.farmingproject.entities.FertilizerType;
 import com.example.farmingproject.jpql.MostExpensiveFertilizerForTypes;
 import com.example.farmingproject.service.FertilizerTypeService;
 import lombok.AllArgsConstructor;

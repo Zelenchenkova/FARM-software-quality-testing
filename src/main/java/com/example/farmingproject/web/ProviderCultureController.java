@@ -1,8 +1,8 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Culture;
-import com.example.farmingproject.domain.Provider;
-import com.example.farmingproject.domain.ProviderCulture;
+import com.example.farmingproject.entities.Culture;
+import com.example.farmingproject.entities.Provider;
+import com.example.farmingproject.entities.ProviderCulture;
 import com.example.farmingproject.service.CultureService;
 import com.example.farmingproject.service.ProviderCultureService;
 import com.example.farmingproject.service.ProviderService;

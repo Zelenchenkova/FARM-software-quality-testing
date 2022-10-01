@@ -1,6 +1,6 @@
 package com.example.farmingproject.repository;
 
-import com.example.farmingproject.domain.Crop;
+import com.example.farmingproject.entities.Crop;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

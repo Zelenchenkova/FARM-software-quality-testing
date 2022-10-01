@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.TechType;
+import com.example.farmingproject.entities.TechType;
 import com.example.farmingproject.jpql.AvgTechYearByType;
 import com.example.farmingproject.repository.TechTypeRepository;
 import com.example.farmingproject.util.AvgTechYearPDFExporter;

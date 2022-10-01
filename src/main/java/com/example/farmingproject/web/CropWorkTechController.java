@@ -1,8 +1,8 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.CropWork;
-import com.example.farmingproject.domain.CropWorkTech;
-import com.example.farmingproject.domain.Tech;
+import com.example.farmingproject.entities.CropWork;
+import com.example.farmingproject.entities.CropWorkTech;
+import com.example.farmingproject.entities.Tech;
 import com.example.farmingproject.service.CropWorkService;
 import com.example.farmingproject.service.CropWorkTechService;
 import com.example.farmingproject.service.TechService;

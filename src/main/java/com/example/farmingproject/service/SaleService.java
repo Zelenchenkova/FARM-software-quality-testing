@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.Sale;
+import com.example.farmingproject.entities.Sale;
 import com.example.farmingproject.jpql.HighestCustomer;
 import com.example.farmingproject.repository.SaleRepository;
 import java.math.BigDecimal;

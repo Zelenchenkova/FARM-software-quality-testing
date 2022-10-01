@@ -1,6 +1,6 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.*;
+import com.example.farmingproject.entities.*;
 import com.example.farmingproject.service.CropService;
 import com.example.farmingproject.service.CropWorkService;
 import com.example.farmingproject.service.CropWorkTechService;

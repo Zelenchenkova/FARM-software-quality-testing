@@ -1,6 +1,6 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Culture;
+import com.example.farmingproject.entities.Culture;
 import com.example.farmingproject.jpql.LatestCropDateForCultures;
 import com.example.farmingproject.service.CultureService;
 import lombok.AllArgsConstructor;

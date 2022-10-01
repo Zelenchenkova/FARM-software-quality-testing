@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.Provider;
+import com.example.farmingproject.entities.Provider;
 import com.example.farmingproject.jpql.CustomersAndProviders;
 import com.example.farmingproject.repository.ProviderRepository;
 import com.example.farmingproject.util.PartnersPDFExporter;

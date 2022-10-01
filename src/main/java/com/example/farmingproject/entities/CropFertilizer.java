@@ -1,4 +1,4 @@
-package com.example.farmingproject.domain;
+package com.example.farmingproject.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -6,15 +6,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
-// Врожай
+// Посів-Добриво
 @Entity
-@Table(name = "harvest")
+@Table(name = "crop_fertilizer")
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = "harvestSale")
-public class Harvest implements Serializable {
+@EqualsAndHashCode
+public class CropFertilizer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +26,11 @@ public class Harvest implements Serializable {
     @Column(name = "weight")
     private Double weight;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_crop", referencedColumnName = "id")
     private Crop crop;
 
-    @OneToMany(mappedBy = "harvest", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    Set<HarvestSale> harvestSale;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_fertilizer", referencedColumnName = "id")
+    private Fertilizer fertilizer;
 }

@@ -1,6 +1,6 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.*;
+import com.example.farmingproject.entities.*;
 import com.example.farmingproject.service.TechTypeService;
 import com.example.farmingproject.service.WorkService;
 import lombok.AllArgsConstructor;

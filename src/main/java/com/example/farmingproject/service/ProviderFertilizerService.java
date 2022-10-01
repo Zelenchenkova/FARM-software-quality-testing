@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.ProviderFertilizer;
+import com.example.farmingproject.entities.ProviderFertilizer;
 import com.example.farmingproject.jpql.SumByDate;
 import com.example.farmingproject.repository.ProviderFertilizerRepository;
 import com.example.farmingproject.util.SumByDatePDFExporter;

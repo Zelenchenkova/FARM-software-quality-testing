@@ -1,8 +1,8 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Crop;
-import com.example.farmingproject.domain.CropFertilizer;
-import com.example.farmingproject.domain.Fertilizer;
+import com.example.farmingproject.entities.Crop;
+import com.example.farmingproject.entities.CropFertilizer;
+import com.example.farmingproject.entities.Fertilizer;
 import com.example.farmingproject.service.CropFertilizerService;
 import com.example.farmingproject.service.CropService;
 import com.example.farmingproject.service.FertilizerService;

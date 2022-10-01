@@ -1,6 +1,6 @@
 package com.example.farmingproject.repository;
 
-import com.example.farmingproject.domain.Tech;
+import com.example.farmingproject.entities.Tech;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -26,7 +26,7 @@ public interface TechRepository extends CrudRepository<Tech, Integer> {
     List<Tech> findTechByYear(Integer yearE, Integer yearL);
 
     // Якого року випуску найновіша наявна техніка та її назва?
-    @Query(value = "SELECT new com.example.farmingproject.domain.Tech(t.name, t.year) FROM Tech AS t" +
+    @Query(value = "SELECT new com.example.farmingproject.entities.Tech(t.name, t.year) FROM Tech AS t" +
             " WHERE t.year >= ALL(SELECT year FROM Tech)")
     List<Tech> findNewestTech();
 }

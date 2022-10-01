@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.Tech;
+import com.example.farmingproject.entities.Tech;
 import com.example.farmingproject.repository.TechRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

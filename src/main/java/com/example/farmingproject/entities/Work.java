@@ -1,4 +1,4 @@
-package com.example.farmingproject.domain;
+package com.example.farmingproject.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

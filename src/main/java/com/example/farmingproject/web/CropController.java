@@ -1,7 +1,7 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Crop;
-import com.example.farmingproject.domain.Culture;
+import com.example.farmingproject.entities.Crop;
+import com.example.farmingproject.entities.Culture;
 import com.example.farmingproject.jpql.CropDate;
 import com.example.farmingproject.service.CropService;
 import com.example.farmingproject.service.CultureService;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller

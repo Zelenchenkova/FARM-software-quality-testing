@@ -1,8 +1,8 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Fertilizer;
-import com.example.farmingproject.domain.Provider;
-import com.example.farmingproject.domain.ProviderFertilizer;
+import com.example.farmingproject.entities.Fertilizer;
+import com.example.farmingproject.entities.Provider;
+import com.example.farmingproject.entities.ProviderFertilizer;
 import com.example.farmingproject.jpql.SumByDate;
 import com.example.farmingproject.service.FertilizerService;
 import com.example.farmingproject.service.ProviderFertilizerService;

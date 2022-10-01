@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.Fertilizer;
+import com.example.farmingproject.entities.Fertilizer;
 import com.example.farmingproject.jpql.FertsNamesByProvider;
 import com.example.farmingproject.repository.FertilizerRepository;
 import com.example.farmingproject.util.FertsNamesByPDFExporter;

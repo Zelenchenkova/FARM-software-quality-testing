@@ -1,7 +1,7 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Tech;
-import com.example.farmingproject.domain.TechType;
+import com.example.farmingproject.entities.Tech;
+import com.example.farmingproject.entities.TechType;
 import com.example.farmingproject.jpql.TechByYear;
 import com.example.farmingproject.service.TechService;
 import com.example.farmingproject.service.TechTypeService;

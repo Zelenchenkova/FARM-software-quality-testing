@@ -1,8 +1,8 @@
 package com.example.farmingproject.web;
 
-import com.example.farmingproject.domain.Harvest;
-import com.example.farmingproject.domain.HarvestSale;
-import com.example.farmingproject.domain.Sale;
+import com.example.farmingproject.entities.Harvest;
+import com.example.farmingproject.entities.HarvestSale;
+import com.example.farmingproject.entities.Sale;
 import com.example.farmingproject.jpql.HarvestDate;
 import com.example.farmingproject.service.HarvestSaleService;
 import com.example.farmingproject.service.HarvestService;

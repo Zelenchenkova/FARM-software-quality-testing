@@ -1,10 +1,9 @@
 package com.example.farmingproject.repository;
 
-import com.example.farmingproject.domain.TechType;
+import com.example.farmingproject.entities.TechType;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
 import java.util.Set;
 
 public interface TechTypeRepository extends CrudRepository<TechType, Integer> {

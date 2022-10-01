@@ -1,6 +1,6 @@
 package com.example.farmingproject.service;
 
-import com.example.farmingproject.domain.FertilizerType;
+import com.example.farmingproject.entities.FertilizerType;
 import com.example.farmingproject.jpql.MostExpensiveFertilizerForTypes;
 import com.example.farmingproject.repository.FertilizerTypeRepository;
 import com.example.farmingproject.util.MostExpensiveForTypesPDFExporter;
